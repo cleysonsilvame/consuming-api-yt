@@ -5,9 +5,9 @@
   "repository": "git@github.com:cleysonsilvame/consuming-api-yt.git",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "googleapis": "^59.0.0"
   },
-  "devDependencies": {
-    
-  }
+  "devDependencies": {}
 }
