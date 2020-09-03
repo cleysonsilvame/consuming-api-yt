@@ -6,11 +6,7 @@ const ApiYouTubeController = require('./controllers/apiYouTubeController')
 
 let comentario = {};
 routes.get('/', (req, res) => {
-  return res.json(
-    {
-      message: 'For more information access the documentation!',
-      link: 'https://github.com/cleysonsilvame/consuming-api-yt'
-    })
+  res.render("index")
 })
 
 routes.post('/comentario',(req,res)=>{
