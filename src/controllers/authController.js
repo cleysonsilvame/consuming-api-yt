@@ -13,7 +13,7 @@ module.exports = {
   async getAuthentication(req, res){
     const consentUrl = OAuthClient.generateAuthUrl({
       access_type: 'offline',
-      scope: ['https://www.googleapis.com/auth/youtube.readonly']
+      scope: ['https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/youtube.readonly', 'https://www.googleapis.com/auth/youtube.force-ssl']
     })
     res.json(
     {
