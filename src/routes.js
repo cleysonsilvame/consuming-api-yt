@@ -20,6 +20,9 @@ routes.get('/comentario',(req,res)=>{
 
 routes.get('/auth', AuthController.getAuthentication)
 routes.get('/oauth2callback', AuthController.setSessionAuth)
+routes.get('/authenticated', (req, res) =>{
+  res.render("auth")
+})
 routes.get('/broadcast', ApiYouTubeController.getBroadcast)
 
 module.exports = routes

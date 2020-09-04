@@ -1,0 +1,44 @@
+[
+  {
+    "kind": "youtube#liveBroadcast",
+    "etag": "PWkzSB2xYHnGbY0lzyBfe1kp0hs",
+    "id": "hh0Ges97AjM",
+    "snippet": {
+      "publishedAt": "2020-09-04T01:51:47Z",
+      "channelId": "UCDk_mjaL7lSCkLATLtbHX5w",
+      "title": "test 2 03/09/2020",
+      "description": "",
+      "thumbnails": {
+        "default": {
+          "url": "https://i.ytimg.com/vi/hh0Ges97AjM/default_live.jpg",
+          "width": 120,
+          "height": 90
+        },
+        "medium": {
+          "url": "https://i.ytimg.com/vi/hh0Ges97AjM/mqdefault_live.jpg",
+          "width": 320,
+          "height": 180
+        },
+        "high": {
+          "url": "https://i.ytimg.com/vi/hh0Ges97AjM/hqdefault_live.jpg",
+          "width": 480,
+          "height": 360
+        },
+        "standard": {
+          "url": "https://i.ytimg.com/vi/hh0Ges97AjM/sddefault_live.jpg",
+          "width": 640,
+          "height": 480
+        },
+        "maxres": {
+          "url": "https://i.ytimg.com/vi/hh0Ges97AjM/maxresdefault_live.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "scheduledStartTime": "2020-09-04T01:51:47Z",
+      "actualStartTime": "2020-09-04T01:52:06Z",
+      "isDefaultBroadcast": false,
+      "liveChatId": "Cg0KC2hoMEdlczk3QWpNKicKGFVDRGtfbWphTDdsU0NrTEFUTHRiSFg1dxILaGgwR2VzOTdBak0"
+    }
+  }
+]
