@@ -25,6 +25,7 @@ routes.use(`/front`,front);
 routes.get('/auth', AuthController.getAuthentication)
 routes.get('/oauth2callback', AuthController.setSessionAuth)
 
+
 routes.use('/broadcast',broadcast);
 
 

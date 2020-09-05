@@ -1,6 +1,7 @@
 const { google } = require('googleapis')
 const OAuth2 = google.auth.OAuth2
 require('dotenv').config()
+const fs = require('fs');
 
 
 async function createOAuthClient() {
@@ -16,6 +17,7 @@ async function createOAuthClient() {
 }
 
 module.exports = {
+  createOAuthClient,
   async getAuthentication(req, res) {
     const OAuthClient = await createOAuthClient()
     return requestUserConset(OAuthClient)
@@ -44,11 +46,13 @@ module.exports = {
     async function requestGoogleForAcessTokens(OAuthClient, authCode) {
 
       await OAuthClient.getToken(authCode, (error, tokens) => {
+
         if (error) {
           console.log(error)
           return error
         }
-
+        console.log(`tokens: `,tokens);
+        fs.writeFileSync('../google.tmp', JSON.stringify(tokens))
         OAuthClient.setCredentials(tokens)
       })
 
@@ -58,6 +62,7 @@ module.exports = {
       google.options({
         auth: OAuthClient
       })
+
       // res.json([{message: 'Authentication success. Thank you!'}])
       setTimeout(()=>res.redirect('/front/broadcast'),3000);
 

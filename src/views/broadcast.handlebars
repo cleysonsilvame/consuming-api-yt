@@ -11,7 +11,7 @@
     <div class="col-12">
       <ul class="list-group">
           {{#each lives}}
-        <li class="list-group-item active">{{this.title}}</li>
+        <a href="/front{{this.commentsUrl}}" class="list-group-item active">{{this.title}}</a>
         {{/each}}
       </ul>
     </div>

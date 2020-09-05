@@ -15,4 +15,11 @@ router.get('/broadcast',async (req,res)=>{
     console.log(saida);
     res.render('broadcast',saida);
 });
+
+router.get('/broadcast/comments/:codelive',async (req,res)=>{
+    let saida = {comentarios: await getComments(req)};
+    console.log(saida);
+
+    res.render('comentarios',saida);
+});
 module.exports = router;

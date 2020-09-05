@@ -1,0 +1,19 @@
+
+<div class="container">
+  <div class="py-5 text-center">
+    {{!-- <img src="logo-nd.png"> --}}
+    <h1>Comentarios</h1>
+    <p class="lead">Clique para enviar o comentario para live</p>
+    <p class="lead">{{comentarios.error}}</p>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <ul class="list-group">
+          {{#each comentarios}}
+        <a href="/front" class="list-group-item active">{{this.displayName}} comentou: {{this.displayMessage}}git add </a>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>
