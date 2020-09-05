@@ -25,7 +25,12 @@ module.exports = {
         access_type: 'offline',
         scope: ['https://www.googleapis.com/auth/youtube.readonly']
       })
-      res.redirect(consentUrl)
+
+      jsonRes = [
+        {"Consent URL": consentUrl}
+      ]
+
+      res.json(jsonRes)
     }
 
   },
@@ -53,8 +58,7 @@ module.exports = {
       google.options({
         auth: OAuthClient
       })
-      res.redirect('/authenticated')
-      console.log('Authentication success. Thank you!')
+      res.json([{message: 'Authentication success. Thank you!'}])
     }
   }
 }
