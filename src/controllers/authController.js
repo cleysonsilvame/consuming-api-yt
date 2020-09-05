@@ -18,7 +18,7 @@ async function createOAuthClient() {
 module.exports = {
   async getAuthentication(req, res) {
     const OAuthClient = await createOAuthClient()
-    requestUserConset(OAuthClient)
+    return requestUserConset(OAuthClient)
 
     async function requestUserConset(OAuthClient) {
       const consentUrl = OAuthClient.generateAuthUrl({
@@ -26,11 +26,11 @@ module.exports = {
         scope: ['https://www.googleapis.com/auth/youtube.readonly']
       })
 
-      jsonRes = [
-        {"Consent URL": consentUrl}
-      ]
+      const jsonRes = {consentURL: consentUrl};
 
-      res.json(jsonRes)
+      if(res)
+        res.json(jsonRes);
+      return jsonRes
     }
 
   },
@@ -58,7 +58,9 @@ module.exports = {
       google.options({
         auth: OAuthClient
       })
-      res.json([{message: 'Authentication success. Thank you!'}])
+      // res.json([{message: 'Authentication success. Thank you!'}])
+      setTimeout(()=>res.redirect('/front/broadcast'),3000);
+
     }
   }
 }

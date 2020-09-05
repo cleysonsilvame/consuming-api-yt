@@ -2,7 +2,9 @@ const express = require('express')
 const routes = express.Router()
 
 const AuthController = require('./controllers/authController')
-const ApiYouTubeController = require('./controllers/apiYouTubeController')
+const broadcast = require('./routes/broadcast');
+const front = require('./routes/front');
+
 
 routes.get('/', (req, res) => {
   res.send([{
@@ -15,20 +17,15 @@ routes.get('/', (req, res) => {
   }])
 })
 
-// let comentario = {};
-// routes.post('/comentario',(req,res)=>{
-//    comentario = req.body.comentario;
-//   res.json(comentario);
-// })
+routes.use(`/front`,front);
 
-// routes.get('/comentario',(req,res)=>{
-//   res.json(comentario);
-// })
+
+
 
 routes.get('/auth', AuthController.getAuthentication)
 routes.get('/oauth2callback', AuthController.setSessionAuth)
 
-routes.get('/broadcast', ApiYouTubeController.getBroadcast)
-routes.get('/comments', ApiYouTubeController.getComments)
+routes.use('/broadcast',broadcast);
+
 
 module.exports = routes
