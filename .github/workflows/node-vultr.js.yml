@@ -42,6 +42,6 @@ jobs:
         # connection timeout to remote host
         connect_timeout: 30
 #         # execute pre-commands before scp
-        scp: ./  => ~/
+        scp: /home/runner/work/consuming-api-yt/*  => ~/
         # execute post-commands after scp
         last_ssh: npm start      
