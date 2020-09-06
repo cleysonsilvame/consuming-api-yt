@@ -13,4 +13,4 @@ app.use(express.json())
 app.use(routes)
 
 
-app.listen(PORT, console.log(`> Server YOUTUBE-API-COMENTARIO rodando na porta ${PORT}`))
+app.listen(PORT, console.log(`> Server YOUTUBE-API-COMENTARIO rodando na porta ${PORT}!`))
