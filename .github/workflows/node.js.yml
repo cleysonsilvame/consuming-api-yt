@@ -39,7 +39,7 @@ jobs:
         # ssh remote password
         pass: oK?48BNft7zQEJSb
         # connection timeout to remote host
-        connect_timeout: 30
+        connect_timeout: 31
 #         # execute pre-commands before scp
 #         scp: 
         # execute post-commands after scp
