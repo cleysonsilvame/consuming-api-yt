@@ -44,4 +44,4 @@ jobs:
 #         # execute pre-commands before scp
         scp: /home/runner/work/consuming-api-yt/*  => ~/
         # execute post-commands after scp
-        last_ssh: npm start      
+        last_ssh: ls -a     
