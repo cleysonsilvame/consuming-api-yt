@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: ls -a
+    - run: ls -a && pwd
     - name: ssh-scp-ssh-pipelines
       # You may pin to the exact commit or the version.
       # uses: cross-the-world/ssh-scp-ssh-pipelines@e1c2bf0c8d7813a3243dc649b6af178262a834e9
@@ -42,6 +42,6 @@ jobs:
         # connection timeout to remote host
         connect_timeout: 30
 #         # execute pre-commands before scp
-        scp: /home/runner/work/consuming-api-yt/consuming-api-yt  => ~/yt
+        scp: /home/runner/work/consuming-api-yt/consuming-api-yt  => /root/yt
         # execute post-commands after scp
         last_ssh: ls -a     
