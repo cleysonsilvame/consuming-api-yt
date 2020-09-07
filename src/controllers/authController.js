@@ -28,10 +28,13 @@ module.exports = {
         scope: ['https://www.googleapis.com/auth/youtube.readonly']
       })
 
-      const jsonRes = {consentURL: consentUrl};
+      const jsonRes = {
+        message: 'Log in to consentURL and then go to redirectURL',
+        consentURL: consentUrl,
+        redirectURL: '/json/broadcast'
+      };
 
-      if(res)
-        res.json(jsonRes);
+      if (res) res.json(jsonRes);
       return jsonRes
     }
 
@@ -51,7 +54,7 @@ module.exports = {
           console.log(error)
           return error
         }
-        console.log(`tokens: `,tokens);
+        console.log(`tokens: `, tokens);
         fs.writeFileSync('../google.tmp', JSON.stringify(tokens))
         OAuthClient.setCredentials(tokens)
       })
@@ -64,7 +67,7 @@ module.exports = {
       })
 
       // res.json([{message: 'Authentication success. Thank you!'}])
-      setTimeout(()=>res.redirect('/front/broadcast'),3000);
+      setTimeout(() => res.redirect('/broadcast'), 3000);
 
     }
   }

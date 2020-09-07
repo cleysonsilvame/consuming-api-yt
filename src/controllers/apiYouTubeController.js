@@ -8,7 +8,7 @@ const fs = require('fs');
 
 //Le os tokens no arquivo assim nao precisa fazer o processo de login toda vez
 fs.readFile('../google.tmp', 'utf8', async function(err, contents) {
-  const tokens =  JSON.parse(contents)
+  const tokens =  JSON.parse(contents) || ''
   const OAuthClient = await createOAuthClient();
   OAuthClient.setCredentials(tokens);
         google.options({
@@ -28,7 +28,7 @@ const  getBroadcast = async (req, res) => {
 
     let liveChatIds = {
       message: 'Enter at the path the lives codes to access comments',
-      path: 'Method GET at /comments route',
+      path: 'Method GET at /json/broadcast/comments route',
       lives: {}
     }
 
@@ -36,7 +36,6 @@ const  getBroadcast = async (req, res) => {
       let date = new Date(jsonItems[i].snippet.publishedAt).toString()
 
       liveChatIds.lives[`live ${i + 1}`] = {
-
         code: jsonItems[i].snippet.liveChatId,
         publishedAt: date,
         title: jsonItems[i].snippet.title,
@@ -57,7 +56,7 @@ const  getBroadcast = async (req, res) => {
   })
 };
 
-const getCommentsInternal = async(codeLive,pageToken='',comentarios_array = [])=>{
+const getCommentsInternal = async(codeLive, pageToken='', comentarios_array = []) => {
 
   return youtube.liveChatMessages.list({
     key: process.env.YOUTUBE_TOKEN,
@@ -88,11 +87,7 @@ const getCommentsInternal = async(codeLive,pageToken='',comentarios_array = [])=
       comentarios_array.push(obj);
     }
 
-
-    // res.json(commentsInfo)
-    console.log(comentarios_array)
     return getCommentsInternal(codeLive,commentsInfo.nextPageToken,comentarios_array);
-
 
   }).catch((err) => {
     console.log(`Erros ao pegar mensagens ${err.message}`);

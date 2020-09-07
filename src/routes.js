@@ -1,32 +1,17 @@
 const express = require('express')
-const routes = express.Router()
+const router = express.Router()
 
-const AuthController = require('./controllers/authController')
-const broadcast = require('./routes/broadcast');
-const front = require('./routes/front');
-
-
-routes.get('/', (req, res) => {
-  res.send([{
-    message: 'Welcome to the Consuming API YouTube',
-    options: 
-    {
-      auth: 'Method GET at /auth route',
-      broadcast: 'Method GET at /broadcast route',
-    }
-  }])
-})
-
-routes.use(`/front`,front);
+const {getAuthentication, setSessionAuth} = require('./controllers/authController')
+const frontRoutes = require('./routes/frontRoutes')
+const jsonRoutes = require('./routes/jsonRoutes')
 
 
+router.get('/auth', getAuthentication)
+router.get('/oauth2callback', setSessionAuth)
 
 
-routes.get('/auth', AuthController.getAuthentication)
-routes.get('/oauth2callback', AuthController.setSessionAuth)
+router.use('/', frontRoutes)
+router.use('/json', jsonRoutes)
 
 
-routes.use('/broadcast',broadcast);
-
-
-module.exports = routes
+module.exports = router
