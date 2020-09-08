@@ -54,7 +54,6 @@ module.exports = {
           console.log(error)
           return error
         }
-        console.log(`tokens: `, tokens);
         fs.writeFileSync('../google.tmp', JSON.stringify(tokens))
         OAuthClient.setCredentials(tokens)
       })

@@ -15,6 +15,9 @@ router.get('/', (req, res) => {
 })
 
 router.get('/broadcast', getBroadcast)
-router.get('/broadcast/comments/:codelive', getComments)
+router.get('/broadcast/comments/:codelive', async (req,res) => {
+    let saida = {comentarios: await getComments(req)}
+    res.json(saida)
+})
 
 module.exports = router;

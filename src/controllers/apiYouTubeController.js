@@ -39,7 +39,6 @@ const  getBroadcast = async (req, res) => {
         code: jsonItems[i].snippet.liveChatId,
         publishedAt: date,
         title: jsonItems[i].snippet.title,
-        commentsUrl: `/broadcast/comments/${jsonItems[i].snippet.liveChatId}`,
       }
     }
 
@@ -66,6 +65,7 @@ const getCommentsInternal = async(codeLive, pageToken='', comentarios_array = []
     pageToken: pageToken
   }).then((response) => {
     const jsonItems = response.data.items
+    console.log(response.data.pageInfo.totalResults)
 
     let commentsInfo = {
       nextPageToken: response.data.nextPageToken,
@@ -100,6 +100,7 @@ const getComments = async (req, res) => {
 
   const codeLive = req.params.codelive
 
+  
   return getCommentsInternal(codeLive);
 
 }

@@ -15,5 +15,7 @@
     "googleapis": "^59.0.0",
     "handlebars": "^4.7.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
