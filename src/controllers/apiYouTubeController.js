@@ -7,7 +7,7 @@ const fs = require('fs');
 
 
 //Le os tokens no arquivo assim nao precisa fazer o processo de login toda vez
-fs.readFile('../google.tmp', 'utf8', async function(err, contents) {
+fs.readFile('./google.tmp', 'utf8', async function(err, contents) {
   const tokens =  JSON.parse(contents) || ''
   const OAuthClient = await createOAuthClient();
   OAuthClient.setCredentials(tokens);
@@ -35,7 +35,7 @@ const  getBroadcast = async (req, res) => {
     for (let i = 0; i < jsonItems.length; i++) {
       let date = new Date(jsonItems[i].snippet.publishedAt).toString()
 
-      liveChatIds.lives[`live ${i + 1}`] = {
+      liveChatIds.lives[`Live ${i + 1}`] = {
         code: jsonItems[i].snippet.liveChatId,
         publishedAt: date,
         title: jsonItems[i].snippet.title,
@@ -65,7 +65,6 @@ const getCommentsInternal = async(codeLive, pageToken='', comentarios_array = []
     pageToken: pageToken
   }).then((response) => {
     const jsonItems = response.data.items
-    console.log(response.data.pageInfo.totalResults)
 
     let commentsInfo = {
       nextPageToken: response.data.nextPageToken,
@@ -86,6 +85,8 @@ const getCommentsInternal = async(codeLive, pageToken='', comentarios_array = []
       }
       comentarios_array.push(obj);
     }
+
+    comentarios_array.reverse()
 
     return getCommentsInternal(codeLive,commentsInfo.nextPageToken,comentarios_array);
 

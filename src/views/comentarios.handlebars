@@ -15,10 +15,10 @@
           <div class="media-body">
             <h5 class="mt-0">{{this.displayName}}</h5>
             <span class="font-italic">{{this.displayMessage}}</span>
-            <span class="font-italic">{{this.publishedAt}}</span>
           </div>
-          <div>
-            <button type="button" class="btn btn-outline-dark" onclick="sendOneComment('{{this.profileImageUrl}}', '{{this.displayName}}', '{{this.displayMessage}}', '{{this.publishedAt}}')">Enviar comentário </button>
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-outline-dark my-2" onclick="sendOneComment('{{this.profileImageUrl}}', '{{this.displayName}}', '{{this.displayMessage}}', '{{this.publishedAt}}')""">Enviar comentário </button>
+            <span class="badge badge-secondary">{{this.publishedAt}}</span>
           </div>
         </div>
       </div>
@@ -29,7 +29,17 @@
 
 <script>
   function sendOneComment(profileImageUrl, displayName, displayMessage, publishedAt){
-    
+    let xhr = new XMLHttpRequest(); 
+    let url = "submit.php"; 
 
+    comentario: [
+    {
+      displayName
+      profileImageUrl
+      displayMessage
+      publishedAt
+    }
+
+    console.log(comentario)
   }
 </script>
