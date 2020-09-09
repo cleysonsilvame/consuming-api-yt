@@ -21,14 +21,7 @@ router.get('/broadcast/comments/:codelive', async (req, res) => {
   res.json(saida)
 })
 
-router.get('/broadcast/comment', async (req, res) => {
-  let saida = await getSelectedComments()
-
-  console.log(saida)
-
-
-  res.json(saida)
-})
+router.get('/broadcast/comment', getSelectedComments);
 
 router.post('/broadcast/comment', async (req, res) => {
 

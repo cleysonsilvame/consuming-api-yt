@@ -5,6 +5,10 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 const app = express()
 
+var cors = require('cors')
+app.use(express.static(__dirname+'/views/assets'));
+app.use(cors())
+
 app.engine('handlebars', handlebars({defaultLayout: 'main'}))
 
 app.set('views', path.join(__dirname, '/views'));

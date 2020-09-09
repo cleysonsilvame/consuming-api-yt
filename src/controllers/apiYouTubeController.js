@@ -92,7 +92,7 @@ const getCommentsInternal = async(codeLive, pageToken='', comentarios_array = []
 
   }).catch((err) => {
     console.log(`Erros ao pegar mensagens ${err.message}`);
-    return res.status(err.code).send(err.errors)
+    return res.status(err.code).send(err.errors);
   })
 }
 

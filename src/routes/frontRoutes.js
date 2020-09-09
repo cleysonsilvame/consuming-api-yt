@@ -31,19 +31,11 @@ router.get('/broadcast/comments/:codelive', async (req, res) => {
 
 router.get('/broadcast/comment', async (req, res) => {
     let saida = await getSelectedComments()
-
     res.render('selectedsComments', saida)
 })
+let comentario = {};
 
-router.post('/broadcast/comment', async (req, res) => {
-
-    let saida = { 
-        message: 'Comentário adicionado com sucesso',
-        comentario: await postSelectedComments(req)
-    }
-
-    res.render('commentSuccess', saida)
-})
+router.post('/broadcast/comment', postSelectedComments)
 
 
 module.exports = router
