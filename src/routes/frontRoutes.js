@@ -32,7 +32,6 @@ router.get('/broadcast/comments/:codelive', async (req, res) => {
 router.get('/broadcast/comment', async (req, res) => {
     let saida = await getSelectedComments()
 
-    console.log(saida)
     res.render('selectedsComments', saida)
 })
 
