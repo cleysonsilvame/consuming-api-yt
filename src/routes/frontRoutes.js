@@ -11,7 +11,7 @@ const {
   postSelectedComments,
 } = require('../controllers/selectedsCommentsController');
 
-let codeLive = ''
+let codeLive = '';
 
 router.get('/', async (req, res) => {
   let saida = { url: await getAuthentication(req) };
@@ -26,7 +26,7 @@ router.get('/broadcast', async (req, res) => {
 
 router.get('/broadcast/comments/:codelive', async (req, res) => {
   let saida = { comentarios: await getComments(req) };
-  codeLive = req.params.codelive
+  codeLive = req.params.codelive;
 
   saida.comentarios.forEach((item) => {
     let newDate = new Date(item.publishedAt);

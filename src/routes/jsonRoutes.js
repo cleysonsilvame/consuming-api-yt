@@ -29,9 +29,9 @@ router.get('/broadcast/comments/:codelive', async (req, res) => {
 });
 
 router.get('/broadcast/comment', async (req, res) => {
-  let saida = { comentario: await getSelectedComments() }
+  let saida = { comentario: await getSelectedComments() };
 
-  res.json(saida)
+  res.json(saida);
 });
 
 router.post('/broadcast/comment', async (req, res) => {
