@@ -1,27 +1,17 @@
-const fs = require('fs')
+let comentario = [];
 
-let comentario ={}
-let comentarios = [];
 const getSelectedComments = async (req, res) => {
-  if (res)
-    res.json(comentario)
-  return comentario
+  if (res) res.json(comentario);
+  return comentario;
+};
 
-}
-
-const postSelectedComments = async (req,res) => {
- 
-  console.log(`salvei o comentario ${JSON.stringify(req.body)}`)
-  if (res)
-    res.json(comentario)
-
-    comentario = req.body;
-    comentarios.push(comentario);
-    return comentario;
-}
-
+const postSelectedComments = async (req, res) => {
+  comentario[0] = req.body;
+  if (res) res.redirect('/broadcast/comment');
+  return comentario;
+};
 
 module.exports = {
   postSelectedComments,
   getSelectedComments,
-}
+};
