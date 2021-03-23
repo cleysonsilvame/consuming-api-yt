@@ -26,7 +26,7 @@ interface ICommentsResponse {
 
 export default function Comments() {
   const router = useRouter();
-  const { videoID } = router.query;
+  const videoID = router.query?.videoID ? String(router.query?.videoID) : '';
   const [
     commentSelected,
     setCommentSelected,
@@ -37,21 +37,23 @@ export default function Comments() {
     return commentSelected;
   }
 
-  async function submitSelectedComment(comment, livestreamChannelId) {
-    console.log(comment);
-
-    setCommentSelected({
-      comment,
-      livestreamChannelId,
+  async function submitSelectedComment(
+    comment: IComment,
+    livestreamChannelId: string
+  ) {
+    const response = await fetch('/api/selectedComments', {
+      method: 'POST',
+      body: JSON.stringify({ livestreamChannelId, comment }),
     });
-    console.log(livestreamChannelId);
-    // const response = await fetch('/api/selectedComments?id=' + videoID);
-    // if (response.status === 200) {
-    //   setCommentsResponse(await response.json());
-    // }
+    if (response.status === 200) {
+      setCommentSelected({
+        comment,
+        livestreamChannelId,
+      });
+    }
   }
 
-  async function getComments(videoID) {
+  async function getComments(videoID: string) {
     const response = await fetch('/api/livestream?id=' + videoID);
     if (response.status === 200) {
       setCommentsResponse(await response.json());
@@ -59,7 +61,10 @@ export default function Comments() {
   }
 
   useEffect(() => {
-    if (videoID) getComments(videoID);
+    if (videoID) {
+      getComments(videoID);
+      setInterval(getComments, 1000 * 60, videoID);
+    }
   }, [videoID]);
   return (
     <div className="container">
@@ -102,8 +107,13 @@ export default function Comments() {
                         Enviar comentário
                       </button>
                       <span className="badge badge-secondary">
-                        {new Date(comment.publishedAt).getHours()}:
-                        {new Date(comment.publishedAt).getMinutes()}
+                        {String(
+                          new Date(comment.publishedAt).getHours()
+                        ).padStart(2, '0')}
+                        :
+                        {String(
+                          new Date(comment.publishedAt).getMinutes()
+                        ).padStart(2, '0')}
                       </span>
                     </div>
                   </div>
