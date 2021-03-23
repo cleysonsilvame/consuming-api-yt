@@ -1,4 +1,29 @@
+import { useEffect, useState } from 'react';
+
 export default function Home() {
+  const [videoURL, setVideoURL] = useState('');
+  const [videoID, setVideoID] = useState('');
+  const regex = new RegExp(
+    /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
+  );
+
+  useEffect(() => {
+    try {
+      if (videoURL.match(regex)) {
+        const url = new URL(videoURL);
+        const searchParams = new URLSearchParams(url.search);
+
+        const videoIDParams = searchParams.get('v');
+
+        if (videoIDParams) {
+          setVideoID(videoIDParams);
+        } else setVideoID('');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [videoURL]);
+
   return (
     <div className="container py-5">
       <div className="text-center">
@@ -14,6 +39,8 @@ export default function Home() {
               Livestream URL
             </span>
             <input
+              value={videoURL}
+              onChange={(e) => setVideoURL(e.target.value)}
               type="text"
               className="form-control text-center"
               aria-label="Sizing example input"
@@ -23,7 +50,7 @@ export default function Home() {
         </div>
         <div className="col-12">
           <a
-            href="api/livestream/qweqwe"
+            href={'livestream/comments?videoID=' + videoID}
             className="mt-3 btn btn-lg btn-outline-dark btn-block"
           >
             Selecionar Livestream

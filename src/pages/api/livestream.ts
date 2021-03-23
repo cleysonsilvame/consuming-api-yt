@@ -17,7 +17,7 @@ export default async function handler(
 
   const liveStreamResponse = await youtube.videos.list({
     id: [youtubeURL],
-    part: ['liveStreamingDetails'],
+    part: ['liveStreamingDetails', 'snippet'],
   });
 
   const liveChatId =
@@ -39,6 +39,7 @@ export default async function handler(
       nextPageToken: commentsResponse.data.nextPageToken,
       totalResults: commentsResponse.data.pageInfo.totalResults,
       resultsPerPage: commentsResponse.data.pageInfo.resultsPerPage,
+      livestreamChannelId: liveStreamResponse.data.items[0].snippet.channelId,
     };
     if (commentsInfo.totalResults === 0) return comments;
 
@@ -61,6 +62,9 @@ export default async function handler(
       comments,
     });
   } catch (error) {
-    res.json(error?.response?.data?.error);
+    if (error?.response?.data?.error)
+      return res.json(error?.response?.data?.error);
+
+    return res.status(404).json({ message: 'Livestream não encontrada' });
   }
 }
