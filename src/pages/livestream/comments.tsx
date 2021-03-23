@@ -33,24 +33,24 @@ export default function Comments() {
   ] = useState<ICommentsSelectedResponse>();
   const [commentsResponse, setCommentsResponse] = useState<ICommentsResponse>();
 
-  function getSelectedComment() {
-    return commentSelected;
-  }
-
   async function submitSelectedComment(
     comment: IComment,
     livestreamChannelId: string
   ) {
+    setCommentSelected({
+      livestreamChannelId,
+      comment,
+    });
+
     const response = await fetch('/api/selectedComments', {
       method: 'POST',
-      body: JSON.stringify({ livestreamChannelId, comment }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(commentSelected),
     });
-    if (response.status === 200) {
-      setCommentSelected({
-        comment,
-        livestreamChannelId,
-      });
-    }
+
+    console.log(await response.json());
   }
 
   async function getComments(videoID: string) {

@@ -1,27 +1,46 @@
+import { Db } from 'mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../config/mongodb';
 
+interface IComment {
+  displayMessage: number;
+  displayName: string;
+  profileImageUrl: string;
+  publishedAt: Date;
+}
+
+interface ICommentsSelectedResponse {
+  livestreamChannelId: string;
+  comment: IComment;
+}
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const slug = req.query.id;
+  const db: Db = await connectToDatabase();
+  const collection = db.collection('youtube');
 
-  if (!slug) return res.json('Página não encontrada!');
+  if (req.method === 'POST') {
+    const commentSelected: ICommentsSelectedResponse = req.body;
+    const { livestreamChannelId } = commentSelected;
 
-  const { db, client } = await connectToDatabase();
+    const response = await collection.findOneAndReplace(
+      { livestreamChannelId },
+      commentSelected
+    );
 
-  if (client.isConnected()) {
-    const pageViewBySlug = await db.collection('pageviews').findOne({ slug });
-
-    let total = 0;
-    if (pageViewBySlug) {
-      total = pageViewBySlug.total + 1;
-      await db.collection('pageviews').updateOne({ slug }, { $set: { total } });
-    } else {
-      total = 1;
-      await db.collection('pageviews').insertOne({ slug, total });
+    if (!response?.lastErrorObject?.updatedExisting) {
+      const response = await collection.insertOne(commentSelected);
+      return res.json(response.ops[0]);
     }
 
-    return res.status(200).json({ total });
+    return res.json(response?.value);
   }
 
-  return res.status(500).json({ error: 'client DB is not connected' });
+  const livestreamChannelId = req.query?.livestreamChannelId || '';
+
+  if (livestreamChannelId) {
+    const response = await collection.findOne({ livestreamChannelId });
+    return res.json(response);
+  }
+
+  return res.status(500).json({ message: 'error when connecting' });
 };
