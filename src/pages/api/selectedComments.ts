@@ -1,6 +1,6 @@
 import { Db } from 'mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { connectToDatabase } from '../../config/mongodb';
+import { connectToDatabase } from '../../util/mongodb';
 
 interface IComment {
   displayMessage: number;
@@ -15,31 +15,35 @@ interface ICommentsSelectedResponse {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const db: Db = await connectToDatabase();
-  const collection = db.collection('youtube');
+  try {
+    const { db }: { db: Db } = await connectToDatabase();
+    const collection = db.collection('youtube');
 
-  if (req.method === 'POST') {
-    const commentSelected: ICommentsSelectedResponse = req.body;
-    const { livestreamChannelId } = commentSelected;
+    if (req.method === 'POST') {
+      const commentSelected: ICommentsSelectedResponse = req.body;
+      const { livestreamChannelId } = commentSelected;
 
-    const response = await collection.findOneAndReplace(
-      { livestreamChannelId },
-      commentSelected
-    );
+      const response = await collection.findOneAndReplace(
+        { livestreamChannelId },
+        commentSelected
+      );
 
-    if (!response?.lastErrorObject?.updatedExisting) {
-      const response = await collection.insertOne(commentSelected);
-      return res.json(response.ops[0]);
+      if (!response?.lastErrorObject?.updatedExisting) {
+        const response = await collection.insertOne(commentSelected);
+        return res.json(response.ops[0]);
+      }
+
+      return res.json(response?.value);
     }
 
-    return res.json(response?.value);
-  }
+    const livestreamChannelId = req.query?.livestreamChannelId || '';
 
-  const livestreamChannelId = req.query?.livestreamChannelId || '';
-
-  if (livestreamChannelId) {
-    const response = await collection.findOne({ livestreamChannelId });
-    return res.json(response);
+    if (livestreamChannelId) {
+      const response = await collection.findOne({ livestreamChannelId });
+      return res.json(response);
+    }
+  } catch (error) {
+    return res.json(error);
   }
 
   return res.json({ message: 'informe o livestreamChannelId' });

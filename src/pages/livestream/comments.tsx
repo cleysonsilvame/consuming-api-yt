@@ -42,7 +42,7 @@ export default function Comments() {
       comment,
     });
 
-    const response = await fetch('/api/selectedComments', {
+    const response = fetch('/api/selectedComments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export default function Comments() {
       body: JSON.stringify(commentSelected),
     });
 
-    console.log(await response.json());
+    return response;
   }
 
   async function getComments(videoID: string) {
