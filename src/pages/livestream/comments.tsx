@@ -1,37 +1,17 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import CommentsOverlay from '../../components/commentsOverlay';
-
-interface IComment {
-  displayMessage: number;
-  displayName: string;
-  profileImageUrl: string;
-  publishedAt: Date;
-}
-
-interface ICommentsSelectedResponse {
-  livestreamChannelId: string;
-  comment: IComment;
-}
-
-interface ICommentsResponse {
-  commentsInfo: {
-    nextPageToken: string;
-    totalResults: number;
-    resultsPerPage: number;
-    livestreamChannelId: string;
-  };
-  comments: [IComment];
-}
+import {
+  IComment,
+  IComments,
+  ICommentsSelected,
+} from '../../types/youtubeTypes';
 
 export default function Comments() {
   const router = useRouter();
   const videoID = router.query?.videoID ? String(router.query?.videoID) : '';
-  const [
-    commentSelected,
-    setCommentSelected,
-  ] = useState<ICommentsSelectedResponse>();
-  const [commentsResponse, setCommentsResponse] = useState<ICommentsResponse>();
+  const [commentSelected, setCommentSelected] = useState<ICommentsSelected>();
+  const [commentsResponse, setCommentsResponse] = useState<IComments>();
 
   async function submitSelectedComment(
     comment: IComment,

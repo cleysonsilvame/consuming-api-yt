@@ -1,0 +1,11 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+  --gray-line: #dcdde0;
+}
+
+body {
+  background: var(--background);
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+}
