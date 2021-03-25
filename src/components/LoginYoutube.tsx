@@ -30,28 +30,30 @@ export default function LoginYouTube() {
 
   return (
     <div className="input-group input-group-lg">
-      <span className="input-group-text" id="inputGroup-sizing-lg">
-        YouTube URL
-      </span>
       <input
         value={videoURL}
         onChange={(e) => setVideoURL(e.target.value)}
         type="text"
-        className="form-control text-center"
-        aria-label="Sizing example input"
-        aria-describedby="inputGroup-sizing-lg"
+        className="form-control"
+        id="inputGroupFile04"
+        aria-describedby="inputGroupFileAddon04"
+        aria-label="Upload"
       />
       {youtubeLiveID ? (
         <button
           onClick={handleRemoveVideoURL}
-          className="mt-3 btn btn-lg btn-outline-danger btn-block"
+          className="btn btn-outline-dark mt-3"
+          type="button"
+          id="inputGroupFileAddon04"
         >
           Retirar Youtube ID
         </button>
       ) : (
         <button
           onClick={handleSetVideoID}
-          className="mt-3 btn btn-lg btn-outline-dark btn-block"
+          className="btn btn-outline-dark mt-3"
+          type="button"
+          id="inputGroupFileAddon04"
         >
           Selecionar Livestream
         </button>
