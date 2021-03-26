@@ -15,7 +15,6 @@ export default function YoutubeProvider({ children }) {
 
   useEffect(() => {
     if (Cookies.get('youtubeLiveId')) {
-      console.log(Cookies.get('youtubeLiveId'));
       setYoutubeLiveID(Cookies.get('youtubeLiveId'));
     }
   }, []);

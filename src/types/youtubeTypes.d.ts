@@ -1,5 +1,5 @@
 interface IComment {
-  displayMessage: number;
+  displayMessage: string;
   displayName: string;
   profileImageUrl: string;
   publishedAt: Date;
@@ -15,9 +15,9 @@ interface IComments {
   comments: [IComment];
 }
 
-interface ICommentsSelected {
+interface ICommentSelected {
   livestreamChannelId: string;
   comment: IComment;
 }
 
-export { IComment, IComments, ICommentsSelected };
+export { IComment, IComments, ICommentSelected };
