@@ -28,6 +28,15 @@ export default function LoginYouTube() {
     setVideoURL('');
   }
 
+  function isValidationClassName() {
+    if (
+      videoURL !== '' &&
+      !videoURL.match(URL_REGEX) &&
+      !videoURL.match(YOUTUBE_REGEX)
+    )
+      return 'is-invalid';
+  }
+
   return (
     <div className="input-group input-group-lg">
       {youtubeLiveID ? (
@@ -52,7 +61,7 @@ export default function LoginYouTube() {
         value={videoURL}
         onChange={(e) => setVideoURL(e.target.value)}
         type="text"
-        className="form-control"
+        className={`form-control ${isValidationClassName()}`}
         placeholder="Youtube Livestream URL"
         aria-label="Youtube Livestream URL"
       />
