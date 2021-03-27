@@ -27,63 +27,110 @@ export default function CommentsYoutube() {
   }
 
   async function getComments(videoID: string) {
-    const response = await fetch('/api/livestream?id=' + videoID);
-    if (response.status === 200) {
-      setCommentsResponse(await response.json());
-    }
+    // const response = await fetch('/api/livestream?id=' + videoID);
+    // if (response.status === 200) {
+    //   setCommentsResponse(await response.json());
+    // }
+    setCommentsResponse({
+      commentsInfo: {
+        nextPageToken: 'string;',
+        totalResults: 99,
+        resultsPerPage: 211,
+        livestreamChannelId: 'string;',
+      },
+      comments: [
+        {
+          displayMessage: 'string;',
+          displayName: 'string;',
+          profileImageUrl: 'string;',
+          publishedAt: new Date(),
+        },
+        {
+          displayMessage: 'string;',
+          displayName: 'string;',
+          profileImageUrl: 'string;',
+          publishedAt: new Date(),
+        },
+        {
+          displayMessage: 'string;',
+          displayName: 'string;',
+          profileImageUrl: 'string;',
+          publishedAt: new Date(),
+        },
+        {
+          displayMessage: 'string;',
+          displayName: 'string;',
+          profileImageUrl: 'string;',
+          publishedAt: new Date(),
+        },
+      ],
+    });
   }
 
   useEffect(() => {
     if (youtubeLiveID) {
       getComments(youtubeLiveID);
-      setInterval(getComments, 1000 * 60, youtubeLiveID);
+      // setInterval(getComments, 1000 * 60, youtubeLiveID);
     }
   }, [youtubeLiveID]);
   return (
-    <div>
-      <CommentsOverlay commentSelected={commentSelected} />
-      {commentsResponse &&
-        commentsResponse.comments.map((comment, index) => {
-          return (
-            <div key={index} className="card p-2 my-2">
-              <div className="media d-flex align-items-center">
-                <img
-                  src={comment.profileImageUrl}
-                  className="mr-3 rounded-circle"
-                  alt="..."
-                  width="60rem"
-                />
-                <div className="media-body">
-                  <h5 className="mt-0">{comment.displayName}</h5>
-                  <span className="font-italic">{comment.displayMessage}</span>
-                </div>
-                <div className="d-flex flex-column align-items-center">
-                  <button
-                    onClick={() => {
-                      submitSelectedComment(
-                        commentsResponse.comments[index],
-                        commentsResponse.commentsInfo.livestreamChannelId
-                      );
-                    }}
-                    className="btn btn-outline-dark my-2"
-                  >
-                    Enviar comentário
-                  </button>
-                  <span className="badge badge-secondary">
-                    {String(new Date(comment.publishedAt).getHours()).padStart(
-                      2,
-                      '0'
-                    )}
-                    :
-                    {String(
-                      new Date(comment.publishedAt).getMinutes()
-                    ).padStart(2, '0')}
-                  </span>
+    <>
+      <div className="text-center">
+        <CommentsOverlay
+          commentSelected={commentSelected}
+          button={{
+            name: 'Ver comentário selectionado | YouTube',
+            style: 'btn btn-danger btn-block',
+          }}
+        />
+      </div>
+      <div>
+        {commentsResponse &&
+          commentsResponse.comments.map((comment, index) => {
+            return (
+              <div key={index} className="card my-2 border-danger">
+                <div className="card-body">
+                  <div className="row">
+                    <div className="col-lg-2">
+                      <img
+                        src={comment.profileImageUrl}
+                        className="me-4 rounded-circle"
+                        alt="..."
+                        width="60rem"
+                      />
+                    </div>
+                    <div className="col-lg-6">
+                      <h5 className="mt-0 card-title">{comment.displayName}</h5>
+                      <span className="">{comment.displayMessage}</span>
+                    </div>
+                    <div className="col-lg-4 d-flex flex-column justify-content-center">
+                      <button
+                        onClick={() => {
+                          submitSelectedComment(
+                            commentsResponse.comments[index],
+                            commentsResponse.commentsInfo.livestreamChannelId
+                          );
+                        }}
+                        className="btn btn-dark my-2"
+                      >
+                        Enviar comentário
+                      </button>
+                      <span className="badge bg-secondary">
+                        {String(
+                          new Date(comment.publishedAt).getHours()
+                        ).padStart(2, '0')}
+                        :
+                        {String(
+                          new Date(comment.publishedAt).getMinutes()
+                        ).padStart(2, '0')}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-    </div>
+            );
+          })}
+      </div>
+    </>
   );
 }

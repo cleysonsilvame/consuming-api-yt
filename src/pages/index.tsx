@@ -1,7 +1,8 @@
+import Link from 'next/link';
 import Header from '../components/Header';
 import LoginYouTube from '../components/LoginYoutube';
 
-export default function Home() {
+export default function Home(props) {
   return (
     <div className="container py-5">
       <Header />
@@ -10,8 +11,16 @@ export default function Home() {
           <div className="col col-12 col-md-6 py-2">
             <LoginYouTube />
           </div>
+          <div className="col col-12">
+            <Link href="livestream/comments">
+              <a className="btn btn-outline-dark w-100">Comentários</a>
+            </Link>
+          </div>
         </div>
       </main>
+      <footer className="fixed-bottom text-center">
+        <p>Copyright (c) 2020 Cleyson Silva</p>
+      </footer>
     </div>
   );
 }

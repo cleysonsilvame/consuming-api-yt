@@ -12,7 +12,7 @@ interface IComments {
     resultsPerPage: number;
     livestreamChannelId: string;
   };
-  comments: [IComment];
+  comments: Array<IComment>;
 }
 
 interface ICommentSelected {

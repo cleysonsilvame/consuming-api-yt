@@ -13,10 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ComposeProvider components={[YoutubeProvider]}>
         <Component {...pageProps} />
-      </ComposeProvider>
-      <footer className="text-center fixed-bottom">
-        <p>Copyright (c) 2020 Cleyson Silva</p>
-      </footer>
+      </ComposeProvider>      
     </>
   );
 }

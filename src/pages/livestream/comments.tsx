@@ -3,7 +3,7 @@ import CommentsYoutube from '../../components/CommentsYoutube';
 export default function Comments() {
   return (
     <div className="container">
-      <div className="py-5 text-center">
+      <div className="pt-5 text-center">
         <h1>Comentarios</h1>
         <p className="lead">
           Selecione o comentário para enviar para a Livestream
@@ -11,7 +11,7 @@ export default function Comments() {
       </div>
 
       <div className="row">
-        <div className="col-12">
+        <div className="col-6">
           <CommentsYoutube />
         </div>
       </div>

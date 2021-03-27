@@ -2,19 +2,24 @@ import { ICommentSelected } from '../types/youtubeTypes';
 
 type ICommentsOverlayProps = {
   commentSelected: ICommentSelected;
+  button: {
+    name: string;
+    style: string;
+  };
 };
 
 export default function CommentsOverlay({
   commentSelected,
+  button,
 }: ICommentsOverlayProps) {
   return (
     <>
       <button
-        className="mt-3 btn btn-outline-dark btn-block"
+        className={button.style}
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >
-        Ver comentário selecionado
+        {button.name}
       </button>
 
       <div
@@ -44,7 +49,7 @@ export default function CommentsOverlay({
                     <div className="media d-flex align-items-center">
                       <img
                         src={commentSelected.comment?.profileImageUrl}
-                        className="mr-3 rounded-circle"
+                        className="me-3 rounded-circle"
                         alt="..."
                         width="60rem"
                       />
