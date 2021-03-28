@@ -3,7 +3,7 @@ import CommentsOverlay from './CommentsOverlay';
 import { IComment, IComments, ICommentSelected } from '../types/youtubeTypes';
 import { useYoutubeLiveID } from '../context/Youtube';
 
-export default function CommentsYoutube() {
+export default function CommentsFacebook() {
   const { youtubeLiveID } = useYoutubeLiveID();
   const [commentSelected, setCommentSelected] = useState<ICommentSelected>();
   const [commentsResponse, setCommentsResponse] = useState<IComments>();
@@ -79,8 +79,8 @@ export default function CommentsYoutube() {
         <CommentsOverlay
           commentSelected={commentSelected}
           button={{
-            name: 'Ver comentário selectionado do YouTube',
-            style: 'btn btn-danger btn-block',
+            name: 'Ver comentário selectionado do Facebook',
+            style: 'btn btn-primary btn-block',
           }}
         />
       </div>
@@ -88,7 +88,7 @@ export default function CommentsYoutube() {
         {commentsResponse &&
           commentsResponse.comments.map((comment, index) => {
             return (
-              <div key={index} className="card my-2 border-danger">
+              <div key={index} className="card my-2 border-primary">
                 <div className="card-body">
                   <div className="row">
                     <div className="col-lg-2">

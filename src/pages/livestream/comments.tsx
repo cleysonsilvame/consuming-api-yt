@@ -1,3 +1,4 @@
+import CommentsFacebook from '../../components/CommentsFacebook';
 import CommentsYoutube from '../../components/CommentsYoutube';
 
 export default function Comments() {
@@ -10,9 +11,12 @@ export default function Comments() {
         </p>
       </div>
 
-      <div className="row">
+      <div className="row pb-4">
         <div className="col-6">
           <CommentsYoutube />
+        </div>
+        <div className="col-6">
+          <CommentsFacebook />
         </div>
       </div>
     </div>
