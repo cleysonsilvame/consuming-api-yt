@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Header from '../components/Header';
+import LoginFacebook from '../components/LoginFacebook';
 import LoginYouTube from '../components/LoginYoutube';
 
 export default function Home(props) {
@@ -10,6 +11,9 @@ export default function Home(props) {
         <div className="row">
           <div className="col col-12 col-md-6 py-2">
             <LoginYouTube />
+          </div>
+          <div className="col col-12 col-md-6 py-2">
+            <LoginFacebook />
           </div>
           <div className="col col-12">
             <Link href="livestream/comments">

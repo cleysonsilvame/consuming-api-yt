@@ -6,6 +6,7 @@ import { useIsLoggedIn } from '../context/Facebook';
 
 export default function LoginFacebook() {
   const { isLoggedIn, setIsLoggedIn } = useIsLoggedIn();
+  const { FACEBOOK_APP_ID } = process.env;
 
   function responseFacebook(response: ReactFacebookLoginInfo) {
     if (response?.accessToken) {
@@ -21,17 +22,17 @@ export default function LoginFacebook() {
 
   return isLoggedIn ? (
     <button
-      className="mt-3 btn btn-lg btn-outline-danger btn-block"
+      className="btn btn-lg btn-outline-danger btn-block w-100"
       onClick={logoutFacebook}
     >
       Sair do facebook
     </button>
   ) : (
     <FacebookLoginBtnService
-      appId="776921602933705"
+      appId={FACEBOOK_APP_ID}
       callback={responseFacebook}
       textButton="Login com Facebook"
-      cssClass="mt-3 btn btn-lg btn-outline-primary btn-block"
+      cssClass="btn btn-lg btn-outline-primary btn-block w-100"
     />
   );
 }

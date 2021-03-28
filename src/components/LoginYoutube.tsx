@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useYoutubeLiveID } from '../context/Youtube';
 
 export default function LoginYouTube() {
   const [videoURL, setVideoURL] = useState('');
+  const [isValidationClassName, setIsValidationClassName] = useState('');
   const { youtubeLiveID, setYoutubeLiveID } = useYoutubeLiveID();
   const URL_REGEX = new RegExp(
     /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
@@ -28,43 +29,45 @@ export default function LoginYouTube() {
     setVideoURL('');
   }
 
-  function isValidationClassName() {
+  useEffect(() => {
     if (
       videoURL !== '' &&
       !videoURL.match(URL_REGEX) &&
       !videoURL.match(YOUTUBE_REGEX)
     )
-      return 'is-invalid';
-  }
+      setIsValidationClassName('is-invalid');
+    else setIsValidationClassName('');
+  }, [videoURL]);
 
   return (
     <div className="input-group input-group-lg">
       {youtubeLiveID ? (
         <button
           onClick={handleRemoveVideoURL}
-          className="btn btn-outline-danger"
+          className="btn btn-outline-danger w-100"
           type="button"
         >
-          Retirar Youtube ID
+          Retirar YouTube ID
         </button>
       ) : (
-        <button
-          onClick={handleSetVideoID}
-          className="btn btn-outline-dark"
-          type="button"
-        >
-          Selecionar Livestream
-        </button>
+        <>
+          <button
+            onClick={handleSetVideoID}
+            className="btn btn-outline-dark"
+            type="button"
+          >
+            Selecionar Livestream
+          </button>
+          <input
+            value={videoURL}
+            onChange={(e) => setVideoURL(e.target.value)}
+            type="text"
+            className={`form-control ${isValidationClassName}`}
+            placeholder="Youtube Livestream URL"
+            aria-label="Youtube Livestream URL"
+          />
+        </>
       )}
-
-      <input
-        value={videoURL}
-        onChange={(e) => setVideoURL(e.target.value)}
-        type="text"
-        className={`form-control ${isValidationClassName()}`}
-        placeholder="Youtube Livestream URL"
-        aria-label="Youtube Livestream URL"
-      />
     </div>
   );
 }
