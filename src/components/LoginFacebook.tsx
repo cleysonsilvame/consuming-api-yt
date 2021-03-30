@@ -2,25 +2,28 @@ import Cookies from 'js-cookie';
 import FacebookLoginBtnService, {
   ReactFacebookLoginInfo,
 } from 'react-facebook-login';
-import { useIsLoggedIn } from '../context/Facebook';
+import { useIsFacebookLoggedIn } from '../context/Facebook';
 
-export default function LoginFacebook() {
-  const { isLoggedIn, setIsLoggedIn } = useIsLoggedIn();
-  const { FACEBOOK_APP_ID } = process.env;
+type Props = {
+  appId: string;
+};
+
+export default function LoginFacebook({ appId }: Props) {
+  const { isFacebookLoggedIn, setIsFacebookLoggedIn } = useIsFacebookLoggedIn();
 
   function responseFacebook(response: ReactFacebookLoginInfo) {
-    if (response?.accessToken) {
+    if (response.accessToken) {
       Cookies.set('facebookInfo', response);
-      setIsLoggedIn(true);
+      setIsFacebookLoggedIn(true);
     }
   }
 
   function logoutFacebook() {
     Cookies.remove('facebookInfo');
-    setIsLoggedIn(false);
+    setIsFacebookLoggedIn(false);
   }
 
-  return isLoggedIn ? (
+  return isFacebookLoggedIn ? (
     <button
       className="btn btn-lg btn-outline-danger btn-block w-100"
       onClick={logoutFacebook}
@@ -29,7 +32,7 @@ export default function LoginFacebook() {
     </button>
   ) : (
     <FacebookLoginBtnService
-      appId={FACEBOOK_APP_ID}
+      appId={appId}
       callback={responseFacebook}
       textButton="Login com Facebook"
       cssClass="btn btn-lg btn-outline-primary btn-block w-100"

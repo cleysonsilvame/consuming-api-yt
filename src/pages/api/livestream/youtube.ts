@@ -6,13 +6,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (!req.query.id) return res.json({ message: 'Informe o ID da livestream' });
-  const pageToken = req.query?.pageToken;
-
-  const youtubeURL = req.query.id.toString();
-  const youtubeToken = process.env.YOUTUBE_TOKEN;
-
-  const auth = google.auth.fromAPIKey(youtubeToken);
+  if (!req.query.id) {
+    return res.json({ message: 'Informe o ID da livestream' });
+  }
+  const youtubeURL = String(req.query?.id);
+  const pageToken = req.query?.pageToken ? String(req.query?.pageToken) : '';
+  const { YOUTUBE_TOKEN } = process.env;
+  const auth = google.auth.fromAPIKey(YOUTUBE_TOKEN);
   google.options({ auth });
 
   const liveStreamResponse = await youtube.videos.list({
@@ -28,7 +28,7 @@ export default async function handler(
       liveChatId,
       part: ['snippet, authorDetails'],
       maxResults: 100,
-      pageToken: pageToken ? pageToken.toString() : '',
+      pageToken,
     });
 
     const commentsData = commentsResponse.data.items;

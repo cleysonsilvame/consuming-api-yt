@@ -11,7 +11,7 @@ import {
 const FacebookContext = createContext(null);
 
 export default function FacebookProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isFacebookLoggedIn, setIsFacebookLoggedIn] = useState(false);
 
   useEffect(() => {
     if (Cookies.get('facebookInfo')) {
@@ -21,15 +21,15 @@ export default function FacebookProvider({ children }) {
         1000 * facebookInfo?.data_access_expiration_time
       );
 
-      if (dateExpires > new Date()) setIsLoggedIn(true);
+      if (dateExpires > new Date()) setIsFacebookLoggedIn(true);
     }
   }, []);
 
   return (
     <FacebookContext.Provider
       value={{
-        isLoggedIn,
-        setIsLoggedIn,
+        isFacebookLoggedIn,
+        setIsFacebookLoggedIn,
       }}
     >
       {children}
@@ -37,15 +37,15 @@ export default function FacebookProvider({ children }) {
   );
 }
 
-export function useIsLoggedIn() {
+export function useIsFacebookLoggedIn() {
   const context = useContext(FacebookContext);
   const {
-    isLoggedIn,
-    setIsLoggedIn,
+    isFacebookLoggedIn,
+    setIsFacebookLoggedIn,
   }: {
-    isLoggedIn: boolean;
-    setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
+    isFacebookLoggedIn: boolean;
+    setIsFacebookLoggedIn: Dispatch<SetStateAction<boolean>>;
   } = context;
 
-  return { isLoggedIn, setIsLoggedIn };
+  return { isFacebookLoggedIn, setIsFacebookLoggedIn };
 }

@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import CommentsOverlay from './CommentsOverlay';
 import { IComment, IComments, ICommentSelected } from '../types/youtubeTypes';
 import { useYoutubeLiveID } from '../context/Youtube';
+import Cookies from 'js-cookie';
 
 export default function CommentsYoutube() {
-  const { youtubeLiveID } = useYoutubeLiveID();
+  const { youtubeLiveID, setYoutubeLiveID } = useYoutubeLiveID();
   const [commentSelected, setCommentSelected] = useState<ICommentSelected>();
   const [commentsResponse, setCommentsResponse] = useState<IComments>();
 
@@ -27,50 +28,49 @@ export default function CommentsYoutube() {
   }
 
   async function getComments(videoID: string) {
-    // const response = await fetch('/api/livestream?id=' + videoID);
-    // if (response.status === 200) {
-    //   setCommentsResponse(await response.json());
-    // }
-    setCommentsResponse({
-      commentsInfo: {
-        nextPageToken: 'string;',
-        totalResults: 99,
-        resultsPerPage: 211,
-        livestreamChannelId: 'string;',
-      },
-      comments: [
-        {
-          displayMessage: 'string;',
-          displayName: 'string;',
-          profileImageUrl: 'string;',
-          publishedAt: new Date(),
-        },
-        {
-          displayMessage: 'string;',
-          displayName: 'string;',
-          profileImageUrl: 'string;',
-          publishedAt: new Date(),
-        },
-        {
-          displayMessage: 'string;',
-          displayName: 'string;',
-          profileImageUrl: 'string;',
-          publishedAt: new Date(),
-        },
-        {
-          displayMessage: 'string;',
-          displayName: 'string;',
-          profileImageUrl: 'string;',
-          publishedAt: new Date(),
-        },
-      ],
-    });
+    const response = await fetch('/api/livestream/youtube?id=' + videoID);
+    if (response.status === 200) {
+      setCommentsResponse(await response.json());
+    }
+    // setCommentsResponse({
+    //   commentsInfo: {
+    //     nextPageToken: 'string;',
+    //     totalResults: 99,
+    //     resultsPerPage: 211,
+    //     livestreamChannelId: 'string;',
+    //   },
+    //   comments: [
+    //     {
+    //       displayMessage: 'string;',
+    //       displayName: 'string;',
+    //       profileImageUrl: 'string;',
+    //       publishedAt: new Date(),
+    //     },
+    //     {
+    //       displayMessage: 'string;',
+    //       displayName: 'string;',
+    //       profileImageUrl: 'string;',
+    //       publishedAt: new Date(),
+    //     },
+    //     {
+    //       displayMessage: 'string;',
+    //       displayName: 'string;',
+    //       profileImageUrl: 'string;',
+    //       publishedAt: new Date(),
+    //     },
+    //     {
+    //       displayMessage: 'string;',
+    //       displayName: 'string;',
+    //       profileImageUrl: 'string;',
+    //       publishedAt: new Date(),
+    //     },
+    //   ],
+    // });
   }
 
   useEffect(() => {
     if (youtubeLiveID) {
       getComments(youtubeLiveID);
-      // setInterval(getComments, 1000 * 60, youtubeLiveID);
     }
   }, [youtubeLiveID]);
   return (
