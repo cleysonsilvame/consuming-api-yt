@@ -1,13 +1,9 @@
 import { useState } from 'react';
 import CommentsFacebook from '../../components/CommentsFacebook';
-import CommentsYoutube from '../../components/CommentsYoutube';
+import CommentsYouTube from '../../components/CommentsYouTube';
 
 export default function Comments() {
   const [isNeedRefresh, setIsNeedRefresh] = useState(false);
-
-  setInterval(() => {
-    setIsNeedRefresh(true);
-  }, 2000 * 60);
 
   return (
     <div className="container">
@@ -30,7 +26,7 @@ export default function Comments() {
             />
           </button>
         )}
-        <h1>Comentarios</h1>
+        <h1>Comentários</h1>
         <p className="lead">
           Selecione o comentário para enviar para a Livestream
         </p>
@@ -38,7 +34,7 @@ export default function Comments() {
 
       <div className="row pb-4">
         <div className="col-6">
-          <CommentsYoutube />
+          <CommentsYouTube />
         </div>
         <div className="col-6">
           <CommentsFacebook />

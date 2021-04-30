@@ -4,12 +4,10 @@ import FacebookLoginBtnService, {
 } from 'react-facebook-login';
 import { useIsFacebookLoggedIn } from '../context/Facebook';
 
-type Props = {
-  appId: string;
-};
-
-export default function LoginFacebook({ appId }: Props) {
+export default function LoginFacebook() {
   const { isFacebookLoggedIn, setIsFacebookLoggedIn } = useIsFacebookLoggedIn();
+
+  const { NEXT_PUBLIC_FACEBOOK_APP_ID } = process.env;
 
   function responseFacebook(response: ReactFacebookLoginInfo) {
     if (response.accessToken) {
@@ -32,7 +30,7 @@ export default function LoginFacebook({ appId }: Props) {
     </button>
   ) : (
     <FacebookLoginBtnService
-      appId={appId}
+      appId={NEXT_PUBLIC_FACEBOOK_APP_ID}
       callback={responseFacebook}
       textButton="Login com Facebook"
       cssClass="btn btn-lg btn-outline-primary btn-block w-100"

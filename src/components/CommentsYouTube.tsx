@@ -4,7 +4,7 @@ import { IComment, IComments, ICommentSelected } from '../types/youtubeTypes';
 import { useYoutubeLiveID } from '../context/Youtube';
 import Cookies from 'js-cookie';
 
-export default function CommentsYoutube() {
+export default function CommentsYouTube() {
   const { youtubeLiveID, setYoutubeLiveID } = useYoutubeLiveID();
   const [commentSelected, setCommentSelected] = useState<ICommentSelected>();
   const [commentsResponse, setCommentsResponse] = useState<IComments>();

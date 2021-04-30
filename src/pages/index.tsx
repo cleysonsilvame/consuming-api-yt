@@ -1,14 +1,9 @@
-import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import Header from '../components/Header';
 import LoginFacebook from '../components/LoginFacebook';
-import LoginYouTube from '../components/LoginYoutube';
+import LoginYouTube from '../components/LoginYouTube';
 
-type Props = {
-  FACEBOOK_APP_ID: string;
-};
-
-export default function Home({ FACEBOOK_APP_ID }: Props) {
+export default function Home() {
   return (
     <div className="container py-5">
       <Header />
@@ -18,7 +13,7 @@ export default function Home({ FACEBOOK_APP_ID }: Props) {
             <LoginYouTube />
           </div>
           <div className="col col-12 col-md-6 py-2">
-            <LoginFacebook appId={FACEBOOK_APP_ID} />
+            <LoginFacebook />
           </div>
           <div className="col col-12">
             <Link href="/livestream/comments">
@@ -33,9 +28,3 @@ export default function Home({ FACEBOOK_APP_ID }: Props) {
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { FACEBOOK_APP_ID } = process.env;
-
-  return { props: { FACEBOOK_APP_ID } };
-};
