@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import Head from 'next/head';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
-import YoutubeProvider from '../context/Youtube';
+import YouTubeProvider from '../context/YouTube';
 import ComposeProvider from '../context/ComposeProvider';
 import FacebookProvider from '../context/Facebook';
 
@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>cPicker</title>
         <link rel="shortcut icon" href="/img/logo-nd.ico" type="image/ico" />
       </Head>
-      <ComposeProvider components={[YoutubeProvider, FacebookProvider]}>
+      <ComposeProvider components={[YouTubeProvider, FacebookProvider]}>
         <Component {...pageProps} />
       </ComposeProvider>
     </>

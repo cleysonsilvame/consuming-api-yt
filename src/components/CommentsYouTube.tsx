@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useYouTubeLiveID } from '../context/YouTube';
+import { IComment, IComments, ICommentSelected } from '../types/commentsTypes';
 import CommentsOverlay from './CommentsOverlay';
-import { IComment, IComments, ICommentSelected } from '../types/youtubeTypes';
-import { useYoutubeLiveID } from '../context/Youtube';
-import Cookies from 'js-cookie';
 
 export default function CommentsYouTube() {
-  const { youtubeLiveID, setYoutubeLiveID } = useYoutubeLiveID();
+  const { youTubeLiveID } = useYouTubeLiveID();
   const [commentSelected, setCommentSelected] = useState<ICommentSelected>();
   const [commentsResponse, setCommentsResponse] = useState<IComments>();
 
@@ -69,17 +68,17 @@ export default function CommentsYouTube() {
   }
 
   useEffect(() => {
-    if (youtubeLiveID) {
-      getComments(youtubeLiveID);
+    if (youTubeLiveID) {
+      getComments(youTubeLiveID);
     }
-  }, [youtubeLiveID]);
+  }, [youTubeLiveID]);
   return (
     <>
       <div className="text-center">
         <CommentsOverlay
           commentSelected={commentSelected}
           button={{
-            name: 'Ver comentário selectionado do YouTube',
+            name: 'Ver comentário selecionado do YouTube',
             style: 'btn btn-danger btn-block',
           }}
         />

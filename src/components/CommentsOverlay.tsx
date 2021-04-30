@@ -1,4 +1,4 @@
-import { ICommentSelected } from '../types/youtubeTypes';
+import { ICommentSelected } from '../types/commentsTypes';
 
 type ICommentsOverlayProps = {
   commentSelected: ICommentSelected;

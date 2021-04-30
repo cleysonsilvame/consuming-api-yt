@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useYoutubeLiveID } from '../context/Youtube';
+import { useYouTubeLiveID } from '../context/YouTube';
 
 export default function LoginYouTube() {
   const [videoURL, setVideoURL] = useState('');
   const [isValidationClassName, setIsValidationClassName] = useState('');
-  const { youtubeLiveID, setYoutubeLiveID } = useYoutubeLiveID();
+  const { youTubeLiveID, setYouTubeLiveID } = useYouTubeLiveID();
   const URL_REGEX = new RegExp(
     /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
   );
@@ -17,15 +17,15 @@ export default function LoginYouTube() {
       const url = new URL(videoURL);
 
       if (url.searchParams.get('v')) {
-        setYoutubeLiveID(url.searchParams.get('v'));
+        setYouTubeLiveID(url.searchParams.get('v'));
       } else {
-        setYoutubeLiveID(url.pathname.split('/')[1]);
+        setYouTubeLiveID(url.pathname.split('/')[1]);
       }
     }
   }
 
   function handleRemoveVideoURL() {
-    setYoutubeLiveID('');
+    setYouTubeLiveID('');
     setVideoURL('');
   }
 
@@ -41,7 +41,7 @@ export default function LoginYouTube() {
 
   return (
     <div className="input-group input-group-lg">
-      {youtubeLiveID ? (
+      {youTubeLiveID ? (
         <button
           onClick={handleRemoveVideoURL}
           className="btn btn-outline-danger w-100"
@@ -60,11 +60,11 @@ export default function LoginYouTube() {
           </button>
           <input
             value={videoURL}
-            onChange={(e) => setVideoURL(e.target.value)}
+            onChange={e => setVideoURL(e.target.value)}
             type="text"
             className={`form-control ${isValidationClassName}`}
-            placeholder="Youtube Livestream URL"
-            aria-label="Youtube Livestream URL"
+            placeholder="YouTube Livestream URL"
+            aria-label="YouTube Livestream URL"
           />
         </>
       )}

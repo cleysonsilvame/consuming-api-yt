@@ -1,6 +1,6 @@
 import { Db } from 'mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { connectToDatabase } from '../../util/mongodb';
+import { connectToDatabase } from '../../../../util/mongodb';
 
 interface IComment {
   displayMessage: number;
