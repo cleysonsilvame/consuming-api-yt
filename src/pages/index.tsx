@@ -9,11 +9,12 @@ export default function Home() {
       <Header />
       <main>
         <div className="row">
-          <div className="col col-12 col-md-6 py-2">
+          {/* <div className="col col-12 col-md-6 py-2"> */}
+          <div className="col col-12 py-2">
             <LoginYouTube />
           </div>
           <div className="col col-12 col-md-6 py-2">
-            <LoginFacebook />
+            {/* <LoginFacebook /> */}
           </div>
           <div className="col col-12">
             <Link href="/livestream/comments">

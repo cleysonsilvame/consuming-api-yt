@@ -12,9 +12,6 @@ export default function Comments() {
           <button
             className="alert alert-warning alert-dismissible fade show"
             role="alert"
-            onClick={() => {
-              console.log('1');
-            }}
           >
             Clique para obter novos dados!
             <button
@@ -33,12 +30,13 @@ export default function Comments() {
       </div>
 
       <div className="row pb-4">
-        <div className="col-6">
+        {/* <div className="col-6">  */}
+        <div className="col-12">
           <CommentsYouTube />
         </div>
-        <div className="col-6">
+        {/* <div className="col-6">
           <CommentsFacebook />
-        </div>
+        </div> */}
       </div>
     </div>
   );
