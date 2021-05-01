@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useFacebookInfo } from '../context/Facebook';
 import { IComment, IComments, ICommentSelected } from '../types/commentsTypes';
 import CommentsOverlay from './CommentsOverlay';
 
 export default function CommentsFacebook() {
   const [commentSelected, setCommentSelected] = useState<ICommentSelected>();
   const [commentsResponse, setCommentsResponse] = useState<IComments>();
+  const { facebookInfo } = useFacebookInfo();
 
   async function submitSelectedComment(
     comment: IComment,
@@ -23,6 +25,23 @@ export default function CommentsFacebook() {
     //   body: JSON.stringify(commentSelected),
     // });
   }
+
+  async function getComments(access_token) {
+    const response = await fetch(
+      `/api/livestream/facebook?access_token=${access_token}`
+    );
+    if (response.status === 200) {
+      const comments = await response.json();
+      console.log(comments)
+      // setCommentsResponse();
+    }
+  }
+
+  useEffect(() => {
+    if (facebookInfo?.accessToken) {
+      getComments(facebookInfo?.accessToken);
+    }
+  }, []);
 
   return (
     <>

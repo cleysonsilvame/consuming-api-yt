@@ -17,7 +17,7 @@ export default function CommentsYouTube() {
       comment,
     });
 
-    await fetch('/api/selectedComments', {
+    await fetch('/api/livestream/comments/selected', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -31,40 +31,6 @@ export default function CommentsYouTube() {
     if (response.status === 200) {
       setCommentsResponse(await response.json());
     }
-    // setCommentsResponse({
-    //   commentsInfo: {
-    //     nextPageToken: 'string;',
-    //     totalResults: 99,
-    //     resultsPerPage: 211,
-    //     livestreamChannelId: 'string;',
-    //   },
-    //   comments: [
-    //     {
-    //       displayMessage: 'string;',
-    //       displayName: 'string;',
-    //       profileImageUrl: 'string;',
-    //       publishedAt: new Date(),
-    //     },
-    //     {
-    //       displayMessage: 'string;',
-    //       displayName: 'string;',
-    //       profileImageUrl: 'string;',
-    //       publishedAt: new Date(),
-    //     },
-    //     {
-    //       displayMessage: 'string;',
-    //       displayName: 'string;',
-    //       profileImageUrl: 'string;',
-    //       publishedAt: new Date(),
-    //     },
-    //     {
-    //       displayMessage: 'string;',
-    //       displayName: 'string;',
-    //       profileImageUrl: 'string;',
-    //       publishedAt: new Date(),
-    //     },
-    //   ],
-    // });
   }
 
   useEffect(() => {

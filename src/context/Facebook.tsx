@@ -10,26 +10,43 @@ import {
 
 const FacebookContext = createContext(null);
 
+interface IFacebookInfo {
+  accessToken?: string;
+  data_access_expiration_time?: number;
+  expiresIn?: number;
+  graphDomain?: string;
+  id?: string;
+  name?: string;
+  signedRequest?: string;
+  userID?: string;
+}
+
 export default function FacebookProvider({ children }) {
-  const [isFacebookLoggedIn, setIsFacebookLoggedIn] = useState(false);
+  const [facebookInfo, setFacebookInfo] = useState<IFacebookInfo>();
 
   useEffect(() => {
     if (Cookies.get('facebookInfo')) {
-      const facebookInfo = JSON.parse(Cookies.get('facebookInfo'));
+      const facebookInfoTemp = JSON.parse(Cookies.get('facebookInfo'));
 
       const dateExpires = new Date(
-        1000 * facebookInfo?.data_access_expiration_time
+        1000 * facebookInfoTemp?.data_access_expiration_time
       );
 
-      if (dateExpires > new Date()) setIsFacebookLoggedIn(true);
+      if (dateExpires > new Date()) setFacebookInfo(facebookInfoTemp);
     }
   }, []);
+
+  useEffect(() => {
+    if (facebookInfo?.accessToken) {
+      Cookies.set('facebookInfo', JSON.stringify(facebookInfo));
+    }
+  }, [facebookInfo]);
 
   return (
     <FacebookContext.Provider
       value={{
-        isFacebookLoggedIn,
-        setIsFacebookLoggedIn,
+        facebookInfo,
+        setFacebookInfo,
       }}
     >
       {children}
@@ -37,15 +54,15 @@ export default function FacebookProvider({ children }) {
   );
 }
 
-export function useIsFacebookLoggedIn() {
+export function useFacebookInfo() {
   const context = useContext(FacebookContext);
   const {
-    isFacebookLoggedIn,
-    setIsFacebookLoggedIn,
+    facebookInfo,
+    setFacebookInfo,
   }: {
-    isFacebookLoggedIn: boolean;
-    setIsFacebookLoggedIn: Dispatch<SetStateAction<boolean>>;
+    facebookInfo: IFacebookInfo;
+    setFacebookInfo: Dispatch<SetStateAction<IFacebookInfo>>;
   } = context;
 
-  return { isFacebookLoggedIn, setIsFacebookLoggedIn };
+  return { facebookInfo, setFacebookInfo };
 }
